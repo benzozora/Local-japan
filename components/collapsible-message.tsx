@@ -22,7 +22,7 @@ export function CollapsibleMessage({
   children,
   role,
   isCollapsible = false,
-  isOpen = true,
+  isOpen = true,  // Default to true so sections are open by default
   header,
   onOpenChange,
   showBorder = true

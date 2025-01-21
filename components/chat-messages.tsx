@@ -35,8 +35,8 @@ export function ChatMessages({
   const showSpinner = isLoading && messages[messages.length - 1].role === 'user'
 
   const getIsOpen = (id: string) => {
-    const index = messages.findIndex(msg => msg.id === id.split('-')[0])
-    return openStates[id] ?? index >= lastUserIndex
+    // Return the explicitly set state if it exists, otherwise return true (open by default)
+    return openStates[id] ?? true
   }
 
   const handleOpenChange = (id: string, open: boolean) => {
