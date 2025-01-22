@@ -98,6 +98,19 @@ async function tavilySearch(
     throw new Error('TAVILY_API_KEY is not set in the environment variables')
   }
   const includeImageDescriptions = true
+
+  // Default travel-focused domains for Japan
+  const defaultJapanTravelDomains = [
+    'japan-guide.com',
+    'klook.com',
+    'japan.travel',
+    'magical-trip.com',
+    'tripadvisor.com'
+  ]
+
+  // Combine user-provided domains with default Japan travel domains
+  const mergedIncludeDomains = [...new Set([...defaultJapanTravelDomains, ...includeDomains])]
+
   const response = await fetch('https://api.tavily.com/search', {
     method: 'POST',
     headers: {
@@ -111,7 +124,7 @@ async function tavilySearch(
       include_images: true,
       include_image_descriptions: includeImageDescriptions,
       include_answers: true,
-      include_domains: includeDomains,
+      include_domains: mergedIncludeDomains,
       exclude_domains: excludeDomains
     })
   })

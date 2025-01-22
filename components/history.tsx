@@ -46,12 +46,15 @@ export function History({ location, children }: HistoryProps) {
           {location === 'header' ? <Menu /> : <ChevronLeft size={16} />}
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-64 rounded-tl-xl rounded-bl-xl">
+      <SheetContent className="w-64 rounded-tl-xl rounded-bl-xl" aria-describedby="history-description">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-1 text-sm font-normal mb-2">
             <HistoryIcon size={14} />
             History
           </SheetTitle>
+          <div id="history-description" className="sr-only">
+            View and manage your chat history
+          </div>
         </SheetHeader>
         <div className="my-2 h-full pb-12 md:pb-10">
           <Suspense fallback={<HistorySkeleton />}>{children}</Suspense>

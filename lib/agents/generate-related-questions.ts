@@ -1,5 +1,5 @@
-import { CoreMessage, generateObject } from 'ai'
 import { relatedSchema } from '@/lib/schema/related'
+import { CoreMessage, generateObject } from 'ai'
 import { getModel } from '../utils/registry'
 
 export async function generateRelatedQuestions(
@@ -13,12 +13,23 @@ export async function generateRelatedQuestions(
 
   const result = await generateObject({
     model: getModel(model),
-    system: `As a professional web researcher, your task is to generate a set of three queries that explore the subject matter more deeply, building upon the initial query and the information uncovered in its search results.
+    system: `
+    You are a travel assistant specializing in personalized tourism recommendations for Japan. Your task is to generate three follow-up questions or suggestions that explore the user's query more deeply. 
 
-    For instance, if the original query was "Starship's third test flight key milestones", your output should follow this format:
+    These follow-up questions should:
+    1. Be specific to Japan's unique experiences, culture, or destinations.
+    2. Anticipate the user's potential travel needs, such as additional activities, alternative destinations, or practical tips.
+    3. Match the user's preferences and context as stated in their query (e.g., family-friendly options, local food recommendations, or seasonal highlights).
+    4. Be engaging and conversational in tone to encourage further interaction.
 
-    Aim to create queries that progressively delve into more specific aspects, implications, or adjacent topics related to the initial query. The goal is to anticipate the user's potential information needs and guide them towards a more comprehensive understanding of the subject matter.
-    Please match the language of the response to the user's language.`,
+    For example:
+    - Original Query: "I want to visit Kyoto for 3 days, focusing on temples and food."
+      Follow-Up Questions:
+      - "Would you like recommendations for hidden temples that are less crowded?"
+      - "Are you interested in a guided food tour to sample Kyoto's traditional dishes?"
+      - "Would you like to explore cultural activities like tea ceremonies while you're in Kyoto?"
+
+    The goal is to help the user plan a well-rounded and enjoyable trip while considering their preferences. Ensure the language of your output matches the user's language and tone.`,
     messages: lastMessages,
     schema: relatedSchema
   })
