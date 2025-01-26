@@ -1,4 +1,6 @@
-import React, { cache } from 'react'
+'use client'
+
+import React, { Suspense, useEffect, useState } from 'react'
 import HistoryItem from './history-item'
 import { Chat } from '@/lib/types'
 import { getChats } from '@/lib/actions/chat'
@@ -8,13 +10,31 @@ type HistoryListProps = {
   userId?: string
 }
 
-const loadChats = cache(async (userId?: string) => {
-  return await getChats(userId)
-})
+function HistoryListContent({ userId }: HistoryListProps) {
+  const [chats, setChats] = useState<Chat[]>([])
+  const [loading, setLoading] = useState(true)
 
-// Start of Selection
-export async function HistoryList({ userId }: HistoryListProps) {
-  const chats = await loadChats(userId)
+  useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        const result = await getChats(userId)
+        setChats(result || [])
+      } catch (error) {
+        console.error('Error fetching chats:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchChats()
+  }, [userId])
+
+  if (loading) {
+    return (
+      <div className="text-foreground/30 text-sm text-center py-4">
+        Loading...
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col flex-1 space-y-3 h-full">
@@ -33,5 +53,13 @@ export async function HistoryList({ userId }: HistoryListProps) {
         <ClearHistory empty={!chats?.length} />
       </div>
     </div>
+  )
+}
+
+export function HistoryList(props: HistoryListProps) {
+  return (
+    <Suspense fallback={<div className="text-foreground/30 text-sm text-center py-4">Loading...</div>}>
+      <HistoryListContent {...props} />
+    </Suspense>
   )
 }

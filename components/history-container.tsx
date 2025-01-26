@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { History } from './history'
 import { HistoryList } from './history-list'
@@ -6,9 +8,7 @@ type HistoryContainerProps = {
   location: 'sidebar' | 'header'
 }
 
-const HistoryContainer: React.FC<HistoryContainerProps> = async ({
-  location
-}) => {
+const HistoryContainer: React.FC<HistoryContainerProps> = ({ location }) => {
   const enableSaveChatHistory =
     process.env.NEXT_PUBLIC_ENABLE_SAVE_CHAT_HISTORY === 'true'
   if (!enableSaveChatHistory) {

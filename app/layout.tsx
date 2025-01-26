@@ -13,9 +13,9 @@ const fontSans = FontSans({
   variable: '--font-sans'
 })
 
-const title = 'Morphic'
+const title = 'Local Japan'
 const description =
-  'A fully open-source AI-powered answer engine with a generative UI.'
+  'Your local guide to Japan - Discover the best places and experiences.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://morphic.sh'),
