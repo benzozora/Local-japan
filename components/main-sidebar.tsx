@@ -27,6 +27,7 @@ import Link from "next/link"
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { HistoryList } from "./history-list"
+import { ModeToggle } from "./mode-toggle"
 
 const NavigationItem = ({ href, icon: Icon, children }: { href: string; icon: any; children: React.ReactNode }) => (
   <Link href={href}>
@@ -58,15 +59,18 @@ const SidebarContent = ({ isMobile = false }: { isMobile?: boolean }) => {
       isMobile ? "min-h-[100dvh]" : "h-screen"
     )}>
       {/* Header */}
-      <div className="p-4 border-b flex items-center gap-2">
-        <Image 
-          src="/logo.png" 
-          alt="Local Japan Logo" 
-          width={24} 
-          height={24} 
-          className="object-contain" 
-        />
-        <h2 className="font-semibold">Local Japan</h2>
+      <div className="p-4 border-b flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Image 
+            src="/logo.png" 
+            alt="Local Japan Logo" 
+            width={24} 
+            height={24} 
+            className="object-contain" 
+          />
+          <h2 className="font-semibold">Local Japan</h2>
+        </div>
+        <ModeToggle />
       </div>
 
       {/* Main Navigation */}

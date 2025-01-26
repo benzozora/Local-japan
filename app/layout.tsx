@@ -58,9 +58,9 @@ export default function RootLayout({
         >
           <div className="flex min-h-screen">
             <MainSidebar />
-            <main className="flex-1 lg:ml-64">
+            <main className="flex-1 lg:ml-64 flex flex-col min-h-screen">
               <Header />
-              <div className="container mx-auto p-4">
+              <div className="container mx-auto p-4 flex-1">
                 {children}
               </div>
               <Footer />
