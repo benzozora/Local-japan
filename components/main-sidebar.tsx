@@ -6,14 +6,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
-import { User2, ChevronUp } from "lucide-react"
+import { User2, ChevronUp, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
-export function MainSidebar() {
+const SidebarContent = () => {
   return (
-    <div className="h-screen w-64 border-r bg-background fixed top-0 left-0 flex flex-col">
+    <div className="h-full flex flex-col">
       {/* Header */}
       <div className="p-4 border-b flex items-center gap-2">
         <Image 
@@ -62,5 +70,46 @@ export function MainSidebar() {
         </DropdownMenu>
       </div>
     </div>
+  )
+}
+
+export function MainSidebar() {
+  return (
+    <>
+      {/* Mobile View */}
+      <div className="block sm:hidden">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="fixed top-2 left-2 z-40"
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent 
+            side="left" 
+            className="w-64 p-0"
+          >
+            <SheetHeader className="sr-only">
+              <SheetTitle>Navigation Menu</SheetTitle>
+              <SheetDescription>
+                Access navigation links and user settings
+              </SheetDescription>
+            </SheetHeader>
+            <SidebarContent />
+          </SheetContent>
+        </Sheet>
+      </div>
+
+      {/* Desktop View */}
+      <div className="hidden sm:block">
+        <div className="h-screen w-64 border-r bg-background fixed top-0 left-0 flex flex-col">
+          <SidebarContent />
+        </div>
+      </div>
+    </>
   )
 }
