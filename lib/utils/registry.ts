@@ -6,7 +6,13 @@ import { experimental_createProviderRegistry as createProviderRegistry } from 'a
 import { createOllama } from 'ollama-ai-provider'
 
 export const registry = createProviderRegistry({
-  openai,
+  openai: createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    baseURL: 'https://oai.helicone.ai/v1',
+    headers: {
+      'Helicone-Auth': `Bearer ${process.env.HELICONE_API_KEY}`
+    }
+  }),
   anthropic,
   google,
   groq: createOpenAI({
