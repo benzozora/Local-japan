@@ -60,10 +60,12 @@ export default function RootLayout({
             <MainSidebar />
             <main className="flex-1 lg:ml-64 flex flex-col min-h-screen">
               <Header />
-              <div className="container mx-auto p-4 flex-1">
+              <div className="container mx-auto px-4 flex-1 flex flex-col max-w-3xl lg:-ml-32">
                 {children}
               </div>
-              <Footer />
+              <div className="lg:-ml-32">
+                <Footer />
+              </div>
             </main>
           </div>
           <Toaster />
