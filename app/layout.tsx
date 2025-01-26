@@ -1,6 +1,5 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
-import { Sidebar } from '@/components/sidebar'
 import { MainSidebar } from '@/components/main-sidebar'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
@@ -59,10 +58,11 @@ export default function RootLayout({
         >
           <div className="flex min-h-screen">
             <MainSidebar />
-            <main className="flex-1 ml-64">
+            <main className="flex-1 lg:ml-64">
               <Header />
-              {children}
-              {enableSaveChatHistory && <Sidebar />}
+              <div className="container mx-auto p-4">
+                {children}
+              </div>
               <Footer />
             </main>
           </div>
